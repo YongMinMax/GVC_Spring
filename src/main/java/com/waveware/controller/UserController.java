@@ -1,4 +1,4 @@
-package com.wavewear.controller;
+package com.waveware.controller;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.wavewear.dto.UserDTO;
-import com.wavewear.service.UserService;
+import com.waveware.dto.UserDTO;
+import com.waveware.service.UserService;
 
 @RestController
 public class UserController {

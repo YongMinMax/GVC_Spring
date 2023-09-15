@@ -1,4 +1,4 @@
-package com.wavewear.dto;
+package com.waveware.dto;
 
 import java.sql.Date;
 

@@ -1,4 +1,4 @@
-package com.wavewear.controller;
+package com.waveware.controller;
 
 import java.util.List;
 
@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.wavewear.dto.UserDTO;
-import com.wavewear.service.UserService;
+import com.waveware.dto.UserDTO;
+import com.waveware.service.UserService;
 
 @RestController
 public class HelloController {

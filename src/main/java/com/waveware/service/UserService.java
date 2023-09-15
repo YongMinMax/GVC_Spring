@@ -1,12 +1,12 @@
-package com.wavewear.service;
+package com.waveware.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.wavewear.dto.UserDTO;
-import com.wavewear.mapper.UserMapper;
+import com.waveware.dto.UserDTO;
+import com.waveware.mapper.UserMapper;
 
 @Service
 public class UserService {

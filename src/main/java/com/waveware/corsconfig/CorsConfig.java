@@ -1,4 +1,4 @@
-package com.wavewear.corsconfig;
+package com.waveware.corsconfig;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

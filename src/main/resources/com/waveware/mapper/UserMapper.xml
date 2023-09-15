@@ -2,10 +2,10 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.wavewear.mapper.UserMapper">
+<mapper namespace="com.waveware.mapper.UserMapper">
 
 
-	<select id="userList" resultType="com.wavewear.dto.UserDTO">
+	<select id="userList" resultType="com.waveware.dto.UserDTO">
 		SELECT 
 			*
 			FROM 
