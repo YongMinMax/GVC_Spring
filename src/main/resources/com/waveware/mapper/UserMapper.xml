@@ -10,6 +10,8 @@
 			*
 			FROM 
 			user
+			LIMIT 5 OFFSET 0;
+
 	</select>
 	
 	<select id="getCount" resultType="java.lang.String">
@@ -18,6 +20,27 @@
 			FROM 
 			user
 	</select>
+	<delete id="delUser" parameterType="int">
+		DELETE 
+			from 
+			user
+			WHERE user_idx = #{idx};			
+	</delete>
+<!--	<insert id="addUser" parameterType="Map">-->
+<!--	    INSERT -->
+<!--	    	INTO -->
+<!--	    	user -->
+<!--	    	(user_id, user_pw, user_name,user_role,user_joindate,user_update,user_deletdate)-->
+<!--	    VALUES -->
+<!--	    	(#{ID}, #{PW}, #{Name},#{Role},#{user_joindate},#{user_update})-->
+<!--	</insert>-->
+	<insert id="addUser" parameterType="java.util.Map">
+	    INSERT INTO user (user_id, user_pw, user_name, user_role, user_joindate, user_update)
+	    VALUES (#{user_id}, #{user_pw}, #{user_name}, #{user_role}, #{user_joindate}, #{user_update})
+	</insert>
+	
+	
+	
 	
 
 

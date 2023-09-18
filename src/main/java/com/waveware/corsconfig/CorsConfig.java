@@ -14,8 +14,11 @@ public class CorsConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
 
+        config.setAllowCredentials(true);
         // 허용할 오리진 (프론트엔드 애플리케이션의 도메인)
         config.addAllowedOrigin("http://localhost:3000"); // 프론트엔드 애플리케이션의 도메인으로 변경
+        config.addAllowedMethod("*");
+        config.addAllowedHeader("*");
 
         // 필요한 CORS 설정 추가 (HTTP 메서드, 헤더 등)
 
