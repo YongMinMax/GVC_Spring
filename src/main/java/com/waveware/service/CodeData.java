@@ -96,7 +96,7 @@ public class CodeData {
                 }
             }
            
-            try (Connection connection = DriverManager.getConnection(JDBCURL, USERNAME, PASSWORD)) {
+           try (Connection connection = DriverManager.getConnection(JDBCURL, USERNAME, PASSWORD)) {
                 insertDataToDatabase(connection,titleName,dataNum,dataValue);
                 
             } catch (SQLException e) {

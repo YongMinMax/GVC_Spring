@@ -1,0 +1,443 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.waveware.mapper.CodeMapper">
+	<resultMap id="hsDepth" type="com.waveware.dto.CodeDTO">
+		<result column="hs_code2" property="code" jdbcType="VARCHAR"/>
+		<result column="hs_title2" property="title" jdbcType="VARCHAR"/>
+		<collection property="childrenList" ofType="com.waveware.dto.CodeDTO" javaType="List">
+			<result column="hs_code4" property="code" jdbcType="VARCHAR"/>
+			<result column="hs_title4" property="title" jdbcType="VARCHAR"/>
+			<collection property="childrenList" ofType="com.waveware.dto.CodeDTO" javaType="List">
+				<result column="hs_code6" property="code" jdbcType="VARCHAR"/>
+				<result column="hs_title6" property="title" jdbcType="VARCHAR"/>
+				<collection property="childrenList" ofType="com.waveware.dto.CodeDTO" javaType="List">
+					<result column="hs_code10" property="code" jdbcType="VARCHAR"/>
+					<result column="hs_title10" property="title" jdbcType="VARCHAR"/>
+				</collection>
+			</collection>
+		</collection>
+	</resultMap>
+	<resultMap id="mtiDepth" type="com.waveware.dto.CodeDTO">
+		<result column="mti_code1" property="code" jdbcType="VARCHAR"/>
+		<result column="mti_title1" property="title" jdbcType="VARCHAR"/>
+		<collection property="childrenList" ofType="com.waveware.dto.CodeDTO" javaType="List">
+			<result column="mti_code2" property="code" jdbcType="VARCHAR"/>
+			<result column="mti_title2" property="title" jdbcType="VARCHAR"/>
+			<collection property="childrenList" ofType="com.waveware.dto.CodeDTO" javaType="List">
+				<result column="mti_code3" property="code" jdbcType="VARCHAR"/>
+				<result column="mti_title3" property="title" jdbcType="VARCHAR"/>
+				<collection property="childrenList" ofType="com.waveware.dto.CodeDTO" javaType="List">
+					<result column="mti_code4" property="code" jdbcType="VARCHAR"/>
+					<result column="mti_title4" property="title" jdbcType="VARCHAR"/>
+					<collection property="childrenList" ofType="com.waveware.dto.CodeDTO" javaType="List">
+						<result column="mti_code6" property="code" jdbcType="VARCHAR"/>
+						<result column="mti_title6" property="title" jdbcType="VARCHAR"/>
+					</collection>
+				</collection>
+			</collection>
+		</collection>
+	</resultMap>
+	<resultMap id="sitcDepth" type="com.waveware.dto.CodeDTO">
+		<result column="sitc_code2" property="code" jdbcType="VARCHAR"/>
+		<result column="sitc_title2" property="title" jdbcType="VARCHAR"/>
+		<collection property="childrenList" ofType="com.waveware.dto.CodeDTO" javaType="List">
+			<result column="sitc_code3" property="code" jdbcType="VARCHAR"/>
+			<result column="sitc_title3" property="title" jdbcType="VARCHAR"/>
+			<collection property="childrenList" ofType="com.waveware.dto.CodeDTO" javaType="List">
+				<result column="sitc_code5" property="code" jdbcType="VARCHAR"/>
+				<result column="sitc_title5" property="title" jdbcType="VARCHAR"/>
+			</collection>
+		</collection>
+	</resultMap>
+	<resultMap id="isicDepth" type="com.waveware.dto.CodeDTO">
+		<result column="isic_code1" property="code" jdbcType="VARCHAR"/>
+		<result column="isic_title1" property="title" jdbcType="VARCHAR"/>
+		<collection property="childrenList" ofType="com.waveware.dto.CodeDTO" javaType="List">
+			<result column="isic_code2" property="code" jdbcType="VARCHAR"/>
+			<result column="isic_title2" property="title" jdbcType="VARCHAR"/>
+		</collection>
+
+	</resultMap>
+	<resultMap id="ksicDepth" type="com.waveware.dto.CodeDTO">
+		<result column="ksic_code1" property="code" jdbcType="VARCHAR"/>
+		<result column="ksic_title1" property="title" jdbcType="VARCHAR"/>
+		<collection property="childrenList" ofType="com.waveware.dto.CodeDTO" javaType="List">
+			<result column="ksic_code2" property="code" jdbcType="VARCHAR"/>
+			<result column="ksic_title2" property="title" jdbcType="VARCHAR"/>
+		</collection>
+	</resultMap>
+	<resultMap id="icioDepth" type="com.waveware.dto.CodeDTO">
+		<result column="icio_code1" property="code" jdbcType="VARCHAR"/>
+		<result column="icio_title1" property="title" jdbcType="VARCHAR"/>
+	</resultMap>
+
+
+	<select id="selectAllHSList" parameterType="map" resultMap="hsDepth">
+		select
+		hs.code_2 AS hs_code2
+		, hs.title_2 AS hs_title2
+		, hs.code_4 AS hs_code4
+		, hs.title_4 AS hs_title4
+		, hs.code_6 AS hs_code6
+		, hs.title_6 AS hs_title6
+		, hs.code_10 AS hs_code10
+		, hs.title_10 AS hs_title10
+		from hs_depth as hs
+		<where>
+			<choose>
+				<when test="length == 2">
+					AND CODE_2 = #{code}
+				</when>
+				<when test="length == 4">
+					AND CODE_4 = #{code}
+				</when>
+				<when test="length == 6">
+					AND CODE_6 = #{code}
+				</when>
+				<when test="length == 10">
+					AND CODE_10 = #{code}
+				</when>
+			</choose>
+		</where>
+	</select>
+	<select id="selectAllMTIList" parameterType="String" resultMap="mtiDepth">
+		select mti.code_1 AS mti_code1, mti.title_1 AS mti_title1
+		,mti.code_2 AS mti_code2, mti.title_2 AS mti_title2
+		,mti.code_3 AS mti_code3, mti.title_3 AS mti_title3
+		,mti.code_6 AS mti_code6, mti.title_6 AS mti_title6
+		from mti_depth as mti
+		<where>
+			<choose>
+				<when test="length == 1">
+					AND CODE_1 = #{code}
+				</when>
+				<when test="length == 2">
+					AND CODE_2 = #{code}
+				</when>
+				<when test="length == 5">
+					AND CODE_5 = #{code}
+				</when>
+				<when test="length == 4">
+					AND CODE_4 = #{code}
+				</when>
+				<when test="length == 6">
+					AND CODE_6 = #{code}
+				</when>
+			</choose>
+		</where>
+	</select>
+	<select id="selectAllSITCList" parameterType="String" resultMap="sitcDepth">
+		select sitc.code_2 AS sitc_code2, sitc.title_2 AS sitc_title2
+		,sitc.code_3 AS sitc_code3, sitc.title_3 AS sitc_title3
+		,sitc.code_5 AS sitc_code5, sitc.title_5 AS sitc_title5
+		from sitc_depth as sitc
+		<where>
+			<choose>
+				<when test="length == 2">
+					AND CODE_2 = #{code}
+				</when>
+				<when test="length == 5">
+					AND CODE_5 = #{code}
+				</when>
+				<when test="length == 5">
+					AND CODE_5 = #{code}
+				</when>
+			</choose>
+		</where>
+	</select>
+	<select id="selectAllICIOList" parameterType="String" resultMap="icioDepth">
+		select icio.code AS icio_code1, icio.title AS icio_title1
+		from code_icio as icio
+		<where>
+			<if test="code!=null">
+				code = #{code}
+			</if>
+		</where>
+
+	</select>
+	<select id="selectAllISICList" resultMap="isicDepth">
+		SELECT
+		code_1 AS isic_code1, title_1 AS isic_title1
+		, code_2 AS isic_code2, title_2 AS isic_title2
+		FROM isic_depth
+		<where>
+			<choose>
+				<when test="length == 1">AND code_1 = #{code}</when>
+				<when test="length == 3">
+					AND code_1 = substr(#{code},1,1)
+					AND code_2 = substr(#{code},2,2)
+				</when>
+			</choose>
+		</where>
+	</select>
+	<select id="selectAllKSICList" resultMap="ksicDepth">
+		SELECT ksic_1.code AS ksic_code1 ,ksic_1.title AS ksic_title1,
+		       ksic_2.code AS ksic_code2, ksic_2.title AS ksic_title2
+		FROM code_ksic AS ksic_1 INNER JOIN code_ksic AS ksic_2 ON (ksic_1.code = ksic_2.catagory)
+		<where>
+			<choose>
+				<when test="length == 1">AND ksic_1.code = #{code}</when>
+				<when test="length == 3">
+					AND ksic_1.code = substr(#{code},1,1)
+					AND ksic_2.code = substr(#{code},2,2)
+				</when>
+			</choose>
+		</where>
+	</select>
+
+
+	<select id="selectPartHSList" parameterType="Map" resultMap="hsDepth">
+		select hs.code_2 AS hs_code2, hs.title_2 AS hs_title2
+		, hs.code_4 AS hs_code4, hs.title_4 AS hs_title4
+		, hs.code_6 AS hs_code6, hs.title_6 AS hs_title6
+		, hs.code_10 AS hs_code10, hs.title_10 AS hs_title10
+		FROM code_map AS map INNER JOIN hs_depth AS hs ON (map.hs = hs.code_10)
+		<choose>
+			<when test=" targetSymbol != null and 'mti'.equals(targetSymbol)">
+				INNER JOIN mti_depth AS mti ON (map.mti = mti.code_6)
+				<where>
+					<choose>
+						<when test="targetLength == 1">mti.code_1 = #{targetCode}</when>
+						<when test="targetLength == 2">mti.code_2 = #{targetCode}</when>
+						<when test="targetLength == 3">mti.code_3 = #{targetCode}</when>
+						<when test="targetLength == 4">mti.code_4 = #{targetCode}</when>
+						<when test="targetLength == 6">mti.code_6 = #{targetCode}</when>
+					</choose>
+				</where>
+			</when>
+			<when test=" targetSymbol != null and 'sitc'.equals(targetSymbol)">
+				INNER JOIN sitc_depth AS sitc ON (map.sitc = sitc.code_5)
+				<where>
+					<choose>
+						<when test="targetLength == 2">sitc.code_2 = #{targetCode}</when>
+						<when test="targetLength == 3">sitc.code_3 = #{targetCode}</when>
+						<when test="targetLength == 5">sitc.code_5 = #{targetCode}</when>
+					</choose>
+				</where>
+			</when>
+			<when test=" targetSymbol != null and 'icio'.equals(targetSymbol)">
+				INNER JOIN code_icio AS icio ON (map.icio = icio.code)
+				<where>
+					icio.code = #{targetCode}
+				</where>
+			</when>
+			<when test=" targetSymbol != null and 'isic'.equals(targetSymbol)">
+				INNER JOIN isic_depth AS isic ON (map.isic = isic.code_2)
+				<where>
+					<choose>
+							<when test="targetLength == 1">isic.code_1 = #{targetCode}</when>
+							<when test="targetLength == 2">isic.code_2 = #{targetCode}</when>
+					</choose>
+				</where>
+			</when>
+		</choose>
+		<choose>
+			<when test="sourceLength == 2">and hs.code_2 = #{sourceCode}</when>
+			<when test="sourceLength == 4">and hs.code_4 = #{sourceCode}</when>
+			<when test="sourceLength == 6">and hs.code_6 = #{sourceCode}</when>
+		</choose>
+	</select>
+	<select id="selectPartMTIList" parameterType="Map" resultMap="mtiDepth">
+		select mti.code_1 AS mti_code1, mti.title_1 AS mti_title1
+		,mti.code_2 AS mti_code2, mti.title_2 AS mti_title2
+		,mti.code_3 AS mti_code3, mti.title_3 AS mti_title3
+		,mti.code_6 AS mti_code6, mti.title_6 AS mti_title6
+		FROM code_map AS map INNER JOIN mti_depth AS mti ON (map.mti = mti.code_6)
+		<choose>
+			<when test=" targetSymbol != null and 'hs'.equals(targetSymbol)">
+				INNER JOIN hs_depth AS hs ON (map.hs = hs.code_10)
+				<where>
+					<choose>
+						<when test="targetLength == 2">hs.code_2 = #{targetCode}</when>
+						<when test="targetLength == 4">hs.code_4 = #{targetCode}</when>
+						<when test="targetLength == 6">hs.code_6 = #{targetCode}</when>
+						<when test="targetLength == 10">hs.code_10 = #{targetCode}</when>
+					</choose>
+				</where>
+			</when>
+			<when test=" targetSymbol != null and 'sitc'.equals(targetSymbol)">
+				INNER JOIN sitc_depth AS sitc ON (map.sitc = sitc.code_5)
+				<where>
+					<choose>
+						<when test="targetLength == 2">sitc.code_2 = #{targetCode}</when>
+						<when test="targetLength == 3">sitc.code_3 = #{targetCode}</when>
+						<when test="targetLength == 5">sitc.code_5 = #{targetCode}</when>
+					</choose>
+				</where>
+			</when>
+			<when test=" targetSymbol != null and 'icio'.equals(targetSymbol)">
+				INNER JOIN code_icio AS icio ON (map.icio = icio.code)
+				<where>
+					icio.code = #{targetCode}
+				</where>
+			</when>
+			<when test=" targetSymbol != null and 'isic'.equals(targetSymbol)">
+				INNER JOIN isic_depth AS isic ON (map.isic = isic.code_2)
+				<where>
+					<choose>
+						<when test="targetLength == 1">isic.code_1 = #{targetCode}</when>
+						<when test="targetLength == 2">isic.code_2 = #{targetCode}</when>
+					</choose>
+				</where>
+			</when>
+		</choose>
+		<choose>
+			<when test="sourceLength == 1">and mti.code_1 = #{sourceCode}</when>
+			<when test="sourceLength == 2">and mti.code_2 = #{sourceCode}</when>
+			<when test="sourceLength == 3">and mti.code_3 = #{sourceCode}</when>
+			<when test="sourceLength == 4">and mti.code_4 = #{sourceCode}</when>
+		</choose>
+	</select>
+	<select id="selectPartICIOList" parameterType="Map" resultMap="icioDepth">
+		select distinct icio.code AS icio_code1, icio.title AS icio_title1
+		FROM code_map AS map INNER JOIN code_icio AS icio ON (map.icio = icio.code)
+		<choose>
+			<when test=" targetSymbol != null and 'hs'.equals(targetSymbol)">
+				INNER JOIN hs_depth AS hs ON (map.hs = hs.code_10)
+				<where>
+					<choose>
+						<when test="targetLength == 2">hs.code_2 = #{targetCode}</when>
+						<when test="targetLength == 4">hs.code_4 = #{targetCode}</when>
+						<when test="targetLength == 6">hs.code_6 = #{targetCode}</when>
+						<when test="targetLength == 10">hs.code_10 = #{targetCode}</when>
+					</choose>
+				</where>
+			</when>
+			<when test=" targetSymbol != null and 'mti'.equals(targetSymbol)">
+				INNER JOIN mti_depth AS mti ON (map.mti = mti.code_6)
+				<where>
+					<choose>
+						<when test="targetLength == 1">mti.code_1 = #{targetCode}</when>
+						<when test="targetLength == 2">mti.code_2 = #{targetCode}</when>
+						<when test="targetLength == 3">mti.code_3 = #{targetCode}</when>
+						<when test="targetLength == 4">mti.code_4 = #{targetCode}</when>
+						<when test="targetLength == 6">mti.code_6 = #{targetCode}</when>
+					</choose>
+				</where>
+			</when>
+			<when test=" targetSymbol != null and 'sitc'.equals(targetSymbol)">
+				INNER JOIN sitc_depth AS sitc ON (map.sitc = sitc.code_5)
+				<where>
+					<choose>
+						<when test="targetLength == 2">sitc.code_2 = #{targetCode}</when>
+						<when test="targetLength == 3">sitc.code_3 = #{targetCode}</when>
+						<when test="targetLength == 5">sitc.code_5 = #{targetCode}</when>
+					</choose>
+				</where>
+			</when>
+			<when test=" targetSymbol != null and 'isic'.equals(targetSymbol)">
+				INNER JOIN isic_depth AS isic ON (map.isic = isic.code_2)
+				<where>
+					<choose>
+						<when test="targetLength == 1">isic.code_1 = #{targetCode}</when>
+						<when test="targetLength == 2">isic.code_2 = #{targetCode}</when>
+					</choose>
+				</where>
+			</when>
+		</choose>
+	</select>
+	<select id="selectPartSITCList" parameterType="Map" resultMap="sitcDepth">
+		select sitc.code_2 AS sitc_code2, sitc.title_2 AS sitc_title2
+		,sitc.code_3 AS sitc_code3, sitc.title_3 AS sitc_title3
+		,sitc.code_5 AS sitc_code5, sitc.title_5 AS sitc_title5
+		FROM code_map AS map INNER JOIN sitc_depth AS sitc ON (map.sitc = sitc.code_5)
+		<choose>
+			<when test=" targetSymbol != null and 'hs'.equals(targetSymbol)">
+				INNER JOIN hs_depth AS hs ON (map.hs = hs.code_10)
+				<where>
+					<choose>
+						<when test="targetLength == 2">hs.code_2 = #{targetCode}</when>
+						<when test="targetLength == 4">hs.code_4 = #{targetCode}</when>
+						<when test="targetLength == 6">hs.code_6 = #{targetCode}</when>
+						<when test="targetLength == 10">hs.code_10 = #{targetCode}</when>
+					</choose>
+				</where>
+			</when>
+			<when test=" targetSymbol != null and 'mti'.equals(targetSymbol)">
+				INNER JOIN mti_depth AS mti ON (map.mti = mti.code_6)
+				<where>
+					<choose>
+						<when test="targetLength == 1">mti.code_1 = #{targetCode}</when>
+						<when test="targetLength == 2">mti.code_2 = #{targetCode}</when>
+						<when test="targetLength == 3">mti.code_3 = #{targetCode}</when>
+						<when test="targetLength == 4">mti.code_4 = #{targetCode}</when>
+						<when test="targetLength == 6">mti.code_6 = #{targetCode}</when>
+					</choose>
+				</where>
+			</when>
+			<when test=" targetSymbol != null and 'icio'.equals(targetSymbol)">
+				INNER JOIN code_icio AS icio ON (map.icio = icio.code)
+				<where>
+					icio.code = #{targetCode}
+				</where>
+			</when>
+			<when test=" targetSymbol != null and 'isic'.equals(targetSymbol)">
+				INNER JOIN isic_depth AS isic ON (map.isic = isic.code_2)
+				<where>
+					<choose>
+						<when test="targetLength == 1">isic.code_1 = #{targetCode}</when>
+						<when test="targetLength == 2">isic.code_2 = #{targetCode}</when>
+					</choose>
+				</where>
+			</when>
+		</choose>
+		<choose>
+			<when test="sourceLength == 2">and sitc.code_2 = #{sourceCode}</when>
+			<when test="sourceLength == 3">and sitc.code_3 = #{sourceCode}</when>
+		</choose>
+	</select>
+	<select id="selectPartISICList" parameterType="Map" resultMap="isicDepth">
+		select isic.code_1 AS isic_code1, isic.title_1 AS isic_title1,
+		       isic.code_2 AS isic_code2, isic.title_2 AS isic_title2
+		FROM code_map AS map INNER JOIN isic_depth AS isic ON (map.isic = isic.code_2)
+		<choose>
+			<when test=" targetSymbol != null and 'hs'.equals(targetSymbol)">
+				INNER JOIN hs_depth AS hs ON (map.hs = hs.code_10)
+				<where>
+					<choose>
+						<when test="targetLength == 2">hs.code_2 = #{targetCode}</when>
+						<when test="targetLength == 4">hs.code_4 = #{targetCode}</when>
+						<when test="targetLength == 6">hs.code_6 = #{targetCode}</when>
+						<when test="targetLength == 10">hs.code_10 = #{targetCode}</when>
+					</choose>
+				</where>
+			</when>
+			<when test=" targetSymbol != null and 'mti'.equals(targetSymbol)">
+				INNER JOIN mti_depth AS mti ON (map.mti = mti.code_6)
+				<where>
+					<choose>
+						<when test="targetLength == 1">mti.code_1 = #{targetCode}</when>
+						<when test="targetLength == 2">mti.code_2 = #{targetCode}</when>
+						<when test="targetLength == 3">mti.code_3 = #{targetCode}</when>
+						<when test="targetLength == 4">mti.code_4 = #{targetCode}</when>
+						<when test="targetLength == 6">mti.code_6 = #{targetCode}</when>
+					</choose>
+				</where>
+			</when>
+			<when test=" targetSymbol != null and 'sitc'.equals(targetSymbol)">
+				INNER JOIN sitc_depth AS sitc ON (map.sitc = sitc.code_5)
+				<where>
+					<choose>
+						<when test="targetLength == 2">sitc.code_2 = #{targetCode}</when>
+						<when test="targetLength == 3">sitc.code_3 = #{targetCode}</when>
+						<when test="targetLength == 5">sitc.code_5 = #{targetCode}</when>
+					</choose>
+				</where>
+			</when>
+			<when test=" targetSymbol != null and 'icio'.equals(targetSymbol)">
+				INNER JOIN code_icio AS icio ON (map.icio = icio.code)
+				<where>
+					icio.code = #{targetCode}
+				</where>
+			</when>
+		</choose>
+		<choose>
+			<when test="sourceLength == 1">and isic.code_1 = ${sourceCode}</when>
+		</choose>
+	</select>
+
+</mapper>
+
+
