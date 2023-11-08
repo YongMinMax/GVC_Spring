@@ -29,12 +29,8 @@
 				<result column="mti_code3" property="code" jdbcType="VARCHAR"/>
 				<result column="mti_title3" property="title" jdbcType="VARCHAR"/>
 				<collection property="childrenList" ofType="com.waveware.dto.CodeDTO" javaType="List">
-					<result column="mti_code4" property="code" jdbcType="VARCHAR"/>
-					<result column="mti_title4" property="title" jdbcType="VARCHAR"/>
-					<collection property="childrenList" ofType="com.waveware.dto.CodeDTO" javaType="List">
 						<result column="mti_code6" property="code" jdbcType="VARCHAR"/>
 						<result column="mti_title6" property="title" jdbcType="VARCHAR"/>
-					</collection>
 				</collection>
 			</collection>
 		</collection>
@@ -116,14 +112,11 @@
 				<when test="length == 2">
 					AND CODE_2 = #{code}
 				</when>
-				<when test="length == 5">
-					AND CODE_5 = #{code}
-				</when>
-				<when test="length == 4">
-					AND CODE_4 = #{code}
+				<when test="length == 3">
+					AND CODE_3 = #{code}
 				</when>
 				<when test="length == 6">
-					AND CODE_6 = #{code}
+					AND CODE_4 = #{code}
 				</when>
 			</choose>
 		</where>
@@ -202,7 +195,6 @@
 						<when test="targetLength == 1">mti.code_1 = #{targetCode}</when>
 						<when test="targetLength == 2">mti.code_2 = #{targetCode}</when>
 						<when test="targetLength == 3">mti.code_3 = #{targetCode}</when>
-						<when test="targetLength == 4">mti.code_4 = #{targetCode}</when>
 						<when test="targetLength == 6">mti.code_6 = #{targetCode}</when>
 					</choose>
 				</where>
@@ -287,7 +279,6 @@
 			<when test="sourceLength == 1">and mti.code_1 = #{sourceCode}</when>
 			<when test="sourceLength == 2">and mti.code_2 = #{sourceCode}</when>
 			<when test="sourceLength == 3">and mti.code_3 = #{sourceCode}</when>
-			<when test="sourceLength == 4">and mti.code_4 = #{sourceCode}</when>
 		</choose>
 	</select>
 	<select id="selectPartICIOList" parameterType="Map" resultMap="icioDepth">
@@ -312,7 +303,6 @@
 						<when test="targetLength == 1">mti.code_1 = #{targetCode}</when>
 						<when test="targetLength == 2">mti.code_2 = #{targetCode}</when>
 						<when test="targetLength == 3">mti.code_3 = #{targetCode}</when>
-						<when test="targetLength == 4">mti.code_4 = #{targetCode}</when>
 						<when test="targetLength == 6">mti.code_6 = #{targetCode}</when>
 					</choose>
 				</where>
@@ -362,7 +352,6 @@
 						<when test="targetLength == 1">mti.code_1 = #{targetCode}</when>
 						<when test="targetLength == 2">mti.code_2 = #{targetCode}</when>
 						<when test="targetLength == 3">mti.code_3 = #{targetCode}</when>
-						<when test="targetLength == 4">mti.code_4 = #{targetCode}</when>
 						<when test="targetLength == 6">mti.code_6 = #{targetCode}</when>
 					</choose>
 				</where>
@@ -411,7 +400,6 @@
 						<when test="targetLength == 1">mti.code_1 = #{targetCode}</when>
 						<when test="targetLength == 2">mti.code_2 = #{targetCode}</when>
 						<when test="targetLength == 3">mti.code_3 = #{targetCode}</when>
-						<when test="targetLength == 4">mti.code_4 = #{targetCode}</when>
 						<when test="targetLength == 6">mti.code_6 = #{targetCode}</when>
 					</choose>
 				</where>

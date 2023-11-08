@@ -27,7 +27,6 @@ public class TradeController
 	{
 		return ResponseEntity.ok(mapper.selectCountryList());
 	}
-	//	GetMapping("trade")
 
 	@GetMapping("/trade/history")
 	public ResponseEntity<List<TrandeHistoryDTO>> getTradeInfoList(@RequestParam(name = "country",required = true) String country)

@@ -16,11 +16,7 @@ public class CodeController
 	@Autowired
 	private CodeMapper mapper;
 
-//	@PostMapping("/code/list/pari")
-//	public ResponseEntity<CodeMapDTO> getAllList(){
-//		CodeMapDTO  dto =mapper.selectAllList();
-//		return ResponseEntity.ok(dto);
-//	}
+
 
 	boolean isNotIncludeCode(String code){
 

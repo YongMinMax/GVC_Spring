@@ -3,9 +3,6 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.waveware.mapper.StockMapper">
-
-
-
 	<select id="selectStock" resultType="com.waveware.dto.StockDTO">
 		<![CDATA[
 		select  *
@@ -16,59 +13,112 @@
 		]]>
 	</select>
 
-
 	<select id="selectMonthOfAllStock" resultType="com.waveware.dto.StockDTO">
 		SELECT 'etf/battery' AS NAME,DATE,anomaly
 		FROM etf_battery
-		WHERE DATE_FORMAT(DATE, '%Y%m') =#{date}
+		WHERE DATE_FORMAT(date,"%Y%m") = #{data}
 		UNION ALL
 		SELECT 'etf/car' AS NAME,DATE,anomaly
 		FROM etf_car
-		WHERE DATE_FORMAT(DATE, '%Y%m') =#{date}
+		WHERE DATE_FORMAT(date,"%Y%m") = #{data}
 		UNION ALL
 		SELECT 'etf/oil' AS NAME,DATE,anomaly
 		FROM etf_oil
-		WHERE DATE_FORMAT(DATE, '%Y%m') =#{date}
+		WHERE DATE_FORMAT(date,"%Y%m") = #{data}
 		UNION ALL
 		SELECT 'etf/petrochemical' AS NAME,DATE,anomaly
 		FROM etf_petrochemical
-		WHERE DATE_FORMAT(DATE, '%Y%m') =#{date}
+		WHERE DATE_FORMAT(date,"%Y%m") = #{data}
 		UNION ALL
 		SELECT 'etf/semiconductor' AS NAME,DATE,anomaly
 		FROM etf_semiconductor
-		WHERE DATE_FORMAT(DATE, '%Y%m') =#{date}
+		WHERE DATE_FORMAT(date,"%Y%m") = #{data}
 		UNION ALL
 		SELECT 'etf/steel' AS NAME,DATE,anomaly
 		FROM etf_steel
-		WHERE DATE_FORMAT(DATE, '%Y%m') =#{date}
+		WHERE DATE_FORMAT(date,"%Y%m") = #{data}
 		UNION ALL
 		SELECT 'krw/cny' AS NAME,DATE,anomaly
 		FROM krw_cny
-		WHERE DATE_FORMAT(DATE, '%Y%m') =#{date}
+		WHERE DATE_FORMAT(date,"%Y%m") = #{data}
 		UNION ALL
 		SELECT 'krw/eur' AS NAME,DATE,anomaly
 		FROM krw_eur
-		WHERE DATE_FORMAT(DATE, '%Y%m') =#{date}
+		WHERE DATE_FORMAT(date,"%Y%m") = #{data}
 		UNION ALL
 		SELECT 'krw/jpy' AS NAME,DATE,anomaly
 		FROM krw_jpy
-		WHERE DATE_FORMAT(DATE, '%Y%m') =#{date}
+		WHERE DATE_FORMAT(date,"%Y%m") = #{data}
 		UNION ALL
 		SELECT 'krw/rub' AS NAME,DATE,anomaly
 		FROM krw_rub
-		WHERE DATE_FORMAT(DATE, '%Y%m') =#{date}
+		WHERE DATE_FORMAT(date,"%Y%m") = #{data}
 		UNION ALL
 		SELECT 'krw/usd' AS NAME,DATE,anomaly
 		FROM krw_usd
-		WHERE DATE_FORMAT(DATE, '%Y%m') =#{date}
+		WHERE DATE_FORMAT(DATE,"%Y%m") = #{data}
 		UNION ALL
 		SELECT 'etf/gold' AS NAME,DATE,anomaly
 		FROM etf_gold
-		WHERE DATE_FORMAT(DATE, '%Y%m') =#{date}
+		WHERE DATE_FORMAT(date,"%Y%m") = #{data}
 		UNION ALL
 		SELECT 'kvix/exchange' AS NAME,DATE,anomaly
 		FROM kvix_exchange
-		WHERE DATE_FORMAT(DATE, '%Y%m') =#{date}
+		WHERE DATE_FORMAT(date,"%Y%m") = #{data}
+	</select>
+
+	<select id="selectMonthOfStock" resultType="com.waveware.dto.StockDTO">
+		SELECT 'etf/battery' AS NAME,DATE,anomaly
+		FROM etf_battery
+		WHERE DATE = #{data}
+		UNION ALL
+		SELECT 'etf/car' AS NAME,DATE,anomaly
+		FROM etf_car
+		WHERE DATE = #{data}
+		UNION ALL
+		SELECT 'etf/oil' AS NAME,DATE,anomaly
+		FROM etf_oil
+		WHERE DATE = #{data}
+		UNION ALL
+		SELECT 'etf/petrochemical' AS NAME,DATE,anomaly
+		FROM etf_petrochemical
+		WHERE DATE = #{data}
+		UNION ALL
+		SELECT 'etf/semiconductor' AS NAME,DATE,anomaly
+		FROM etf_semiconductor
+		WHERE DATE = #{data}
+		UNION ALL
+		SELECT 'etf/steel' AS NAME,DATE,anomaly
+		FROM etf_steel
+		WHERE DATE = #{data}
+		UNION ALL
+		SELECT 'krw/cny' AS NAME,DATE,anomaly
+		FROM krw_cny
+		WHERE DATE = #{data}
+		UNION ALL
+		SELECT 'krw/eur' AS NAME,DATE,anomaly
+		FROM krw_eur
+		WHERE DATE = #{data}
+		UNION ALL
+		SELECT 'krw/jpy' AS NAME,DATE,anomaly
+		FROM krw_jpy
+		WHERE DATE = #{data}
+		UNION ALL
+		SELECT 'krw/rub' AS NAME,DATE,anomaly
+		FROM krw_rub
+		WHERE DATE = #{data}
+		UNION ALL
+		SELECT 'krw/usd' AS NAME,DATE,anomaly
+		FROM krw_usd
+		WHERE DATE = #{data}
+		UNION ALL
+		SELECT 'etf/gold' AS NAME,DATE,anomaly
+		FROM etf_gold
+		WHERE DATE = #{data}
+		UNION ALL
+		SELECT 'kvix/exchange' AS NAME,DATE,anomaly
+		FROM kvix_exchange
+		WHERE DATE = #{data}
 	</select>
 
 

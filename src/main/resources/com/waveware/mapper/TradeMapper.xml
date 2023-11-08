@@ -5,6 +5,7 @@
 <mapper namespace="com.waveware.mapper.TradeMapper">
 	<resultMap id="trandeMap" type="com.waveware.dto.TrandeHistoryDTO">
 		<result column="hscode" property="hscode" jdbcType="NVARCHAR" javaType="String"/>
+		<result column="title_10" property="title" jdbcType="NVARCHAR" javaType="String"/>
 		<result column="import_amounts" property="amounts" jdbcType="DOUBLE" javaType="double"/>
 		<result column="import_kg" property="kg" jdbcType="DOUBLE" javaType="double"/>
 		<result column="import_price" property="price" jdbcType="DOUBLE" javaType="double"/>
@@ -30,8 +31,8 @@
 	</resultMap>
 
 	<select id="selectTradeList" parameterType="string" resultMap="trandeMap">
-		SELECT *
-		FROM trade_history  INNER JOIN hs_depth ON (hscode = code_10)
+		SELECT *, title_10 as title
+		FROM 2022_import_trade_history  INNER JOIN hs_depth ON (hscode = code_10)
 		WHERE YEAR = 2022
 		AND country = #{country}
 	</select>

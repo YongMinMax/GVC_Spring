@@ -10,5 +10,6 @@ public interface StockMapper
 {
 	public List<StockDTO> selectStock(String symbol, String startTime, String endTime);
 	public List<StockDTO> selectMonthOfAllStock(String date);
+	public List<StockDTO> selectMonthOfStock(String date);
 
 }

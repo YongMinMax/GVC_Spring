@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.waveware.mapper.WordMapper">
+	<resultMap id="wordCountryDepth" type="com.waveware.dto.WordDTO">
+		<result column="word11" property="word1" jdbcType="VARCHAR"/>
+		<result column="word12" property="word2" jdbcType="VARCHAR"/>
+		<collection property="childrenList" ofType="com.waveware.dto.WordDTO" javaType="List">
+			<result column="word21" property="word1" jdbcType="VARCHAR"/>
+			<result column="word22" property="word2" jdbcType="VARCHAR"/>
+			<collection property="childrenList" ofType="com.waveware.dto.WordDTO" javaType="List">
+				<result column="word31" property="word1" jdbcType="VARCHAR"/>
+				<result column="word32" property="word2" jdbcType="VARCHAR"/>
+				<collection property="childrenList" ofType="com.waveware.dto.WordDTO" javaType="List">
+					<result column="word41" property="word1" jdbcType="VARCHAR"/>
+					<result column="word42" property="word2" jdbcType="VARCHAR"/>
+				</collection>
+			</collection>
+		</collection>
+	</resultMap>
+
+	<resultMap id="wordAllDepth" type="com.waveware.dto.WordDTO">
+		<result column="word11" property="word1" jdbcType="VARCHAR"/>
+		<result column="word12" property="word2" jdbcType="VARCHAR"/>
+		<collection property="childrenList" ofType="com.waveware.dto.WordDTO" javaType="List">
+			<result column="word21" property="word1" jdbcType="VARCHAR"/>
+			<result column="word22" property="word2" jdbcType="VARCHAR"/>
+		</collection>
+	</resultMap>
+
+	<select id="selectWordIndex" parameterType="Map" resultType="Integer">
+		select w.index
+		from word as w
+		where w.word =#{word}
+		and w.type =#{type}
+	</select>
+
+
+	<select id="selectCountryWord" parameterType="Integer" resultMap="wordCountryDepth">
+		SELECT w11.word AS word11,w12.word AS word12, w21.word AS word21,w22.word AS word22,w31.word AS word31,w32.word AS word32,w41.word AS word41,w42.word AS word42
+		FROM word_map AS map1 INNER JOIN word AS w11 ON (map1.word1 = w11.index) INNER JOIN word AS w12 ON(map1.word2 = w12.index)
+							  INNER JOIN  word_map AS map2 ON (map1.word2 = map2.word1)  INNER JOIN word AS w21 ON (map2.word1 = w21.index) INNER JOIN word AS w22 ON (map2.word2 = w22.index)
+							  INNER JOIN  word_map AS map3 ON (map2.word2 = map3.word1) INNER JOIN word AS w31 ON (map3.word1 = w31.index) INNER JOIN word AS w32 ON (map3.word2 = w32.index)
+							  INNER JOIN  word_map AS map4 ON (map3.word2 = map4.word1) INNER JOIN word AS w41 ON (map4.word1 = w41.index) INNER JOIN word AS w42 ON (map4.word2 = w42.index)
+		WHERE map1.word1 != map2.word2
+AND map2.word1 != map3.word2
+and map1.word1 != map3.word1
+and map1.word1 != map4.word1
+AND map3.word1 != map4.word2
+AND map2.word1 != map4.word1
+AND map1.word1 = #{index};
+	</select>
+
+	<select id="selectAllWord" parameterType="Integer" resultMap="wordAllDepth">
+		SELECT w11.word AS word11,w12.word AS word12, w21.word AS word21,w22.word AS word22
+		FROM word_map AS map1 INNER JOIN word AS w11 ON (map1.word1 = w11.index) INNER JOIN word AS w12 ON(map1.word2 = w12.index)
+							  INNER JOIN  word_map AS map2 ON (map1.word2 = map2.word1)  INNER JOIN word AS w21 ON (map2.word1 = w21.index) INNER JOIN word AS w22 ON (map2.word2 = w22.index)
+			AND map1.word1 = #{index};
+	</select>
+
+</mapper>
+
+
