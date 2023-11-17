@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.waveware.mapper.news.NewsMapper">
+	<select id="getNewsForDate" parameterType="string" resultType="com.waveware.dto.news.NewsDTO">
+		select title, SUBSTR(TEXT,1,400) as contents, img_url as img, cat as category, rank, url
+		from ko_hot_news
+		where dt = #{date}
+	</select>
+
+	<select id="getNewsNetworkForDate" parameterType="string" resultType="string">
+		select json
+		from ko_keyword_network
+		where dt = #{date}
+
+	</select>
+
+</mapper>
+
+

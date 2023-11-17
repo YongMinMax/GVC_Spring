@@ -1,4 +1,4 @@
-package com.waveware.dto;
+package com.waveware.dto.master;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;

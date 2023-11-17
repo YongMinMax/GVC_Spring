@@ -2,8 +2,8 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.waveware.mapper.StockMapper">
-	<select id="selectStock" resultType="com.waveware.dto.StockDTO">
+<mapper namespace="com.waveware.mapper.master.StockMapper">
+	<select id="selectStock" resultType="com.waveware.dto.master.StockDTO">
 		<![CDATA[
 		select  *
  		from ${symbol}
@@ -13,7 +13,19 @@
 		]]>
 	</select>
 
-	<select id="selectMonthOfAllStock" resultType="com.waveware.dto.StockDTO">
+	<select id="selectPrevStock" resultType="com.waveware.dto.master.StockDTO">
+		<![CDATA[
+		SELECT  *
+		FROM ${symbol}
+		WHERE 1=1
+		  AND DATE <= #{date}
+		ORDER BY DATE DESC
+		LIMIT 1;
+		]]>
+	</select>
+
+
+	<select id="selectMonthOfAllStock" resultType="com.waveware.dto.master.StockDTO">
 		SELECT 'etf/battery' AS NAME,DATE,anomaly
 		FROM etf_battery
 		WHERE DATE_FORMAT(date,"%Y%m") = #{data}
@@ -67,7 +79,7 @@
 		WHERE DATE_FORMAT(date,"%Y%m") = #{data}
 	</select>
 
-	<select id="selectMonthOfStock" resultType="com.waveware.dto.StockDTO">
+	<select id="selectMonthOfStock" resultType="com.waveware.dto.master.StockDTO">
 		SELECT 'etf/battery' AS NAME,DATE,anomaly
 		FROM etf_battery
 		WHERE DATE = #{data}

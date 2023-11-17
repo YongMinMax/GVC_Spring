@@ -1,4 +1,4 @@
-package com.waveware.dto;
+package com.waveware.dto.master;
 
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -14,13 +14,16 @@ import lombok.NoArgsConstructor;
 public class TrandeHistoryDTO
 {
 	private String hscode;
+	private String country;
+	private String classify;
 	private String title;
-	private double amounts;
-	private double kg;
-	private double price;
-	private double totalPrice; // 총금액
-	private double totalRatio; // HS코드 별 수입 의존 비율 ( x100) 해야함..
-	private double totalDependence; // 해당국가의 총 수출중 차지하는 비율  (x100) 적용됨
+	private Double amounts;
+	private Double kg;
+	private Double price;
+	private Double totalPrice; // 총금액
+	private Double totalRatio;
+	private Double totalScore;
+	private Double totalDependence;
 
 	private CodeDTO code;
 }

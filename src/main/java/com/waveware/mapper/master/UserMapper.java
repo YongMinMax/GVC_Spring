@@ -1,11 +1,11 @@
-package com.waveware.mapper;
+package com.waveware.mapper.master;
 
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
-import com.waveware.dto.UserDTO;
+import com.waveware.dto.master.UserDTO;
 
 @Mapper
 public interface UserMapper {

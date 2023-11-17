@@ -1,8 +1,9 @@
 package com.waveware.controller;
 
-import com.waveware.dto.CodeDTO;
-import com.waveware.mapper.CodeMapper;
+import com.waveware.dto.master.CodeDTO;
+import com.waveware.mapper.master.CodeMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -90,9 +91,14 @@ public class CodeController
 				list = mapper.selectAllKSICList(code,length);
 				break;
 			default:
-				return ResponseEntity.badRequest().build();
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
 
 		}
 		return ResponseEntity.ok(list);
 	}
+
+
+
+
+
 }

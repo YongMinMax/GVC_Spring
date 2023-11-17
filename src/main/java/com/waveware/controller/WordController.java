@@ -1,8 +1,8 @@
 package com.waveware.controller;
 
 
-import com.waveware.dto.WordDTO;
-import com.waveware.mapper.WordMapper;
+import com.waveware.dto.master.WordDTO;
+import com.waveware.mapper.master.WordMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

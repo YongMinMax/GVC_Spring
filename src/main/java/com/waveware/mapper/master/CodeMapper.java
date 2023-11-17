@@ -1,6 +1,6 @@
-package com.waveware.mapper;
+package com.waveware.mapper.master;
 
-import com.waveware.dto.CodeDTO;
+import com.waveware.dto.master.CodeDTO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

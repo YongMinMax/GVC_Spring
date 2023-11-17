@@ -1,0 +1,15 @@
+package com.waveware.dto.news;
+
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class IndustryReportDTO
+{
+	String contents;
+	boolean isLocal;
+}

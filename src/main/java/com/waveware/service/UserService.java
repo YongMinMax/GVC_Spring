@@ -8,8 +8,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.waveware.dto.UserDTO;
-import com.waveware.mapper.UserMapper;
+import com.waveware.dto.master.UserDTO;
+import com.waveware.mapper.master.UserMapper;
 
 @Service
 public class UserService {

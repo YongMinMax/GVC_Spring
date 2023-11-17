@@ -1,9 +1,8 @@
 package com.waveware.controller;
 
-import com.waveware.dto.StockDTO;
-import com.waveware.dto.StockSymbolDTO;
-import com.waveware.mapper.StockMapper;
-import javafx.util.converter.LocalDateStringConverter;
+import com.waveware.dto.master.StockDTO;
+import com.waveware.dto.master.StockSymbolDTO;
+import com.waveware.mapper.master.StockMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -11,9 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
-import java.time.Instant;
 import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.*;
 
 @RestController

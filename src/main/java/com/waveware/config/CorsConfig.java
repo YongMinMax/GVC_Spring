@@ -1,4 +1,4 @@
-package com.waveware.corsconfig;
+package com.waveware.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,7 +16,8 @@ public class CorsConfig {
 
         config.setAllowCredentials(true);
         // 허용할 오리진 (프론트엔드 애플리케이션의 도메인)
-        config.addAllowedOrigin("http://localhost:3000"); // 프론트엔드 애플리케이션의 도메인으로 변경
+//        config.addAllowedOrigin("http://localhost:3000"); // 프론트엔드 애플리케이션의 도메인으로 변경
+        config.addAllowedOriginPattern("*");
         config.addAllowedMethod("*");
         config.addAllowedHeader("*");
 

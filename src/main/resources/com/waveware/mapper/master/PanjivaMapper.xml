@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.waveware.mapper.master.PanjivaMapper">
+
+	<resultMap id="hs6Depth" type="com.waveware.dto.master.CodeDTO">
+		<id column="code_2" property="code" jdbcType="VARCHAR"/>
+		<result column="title_2" property="title" jdbcType="VARCHAR"/>
+		<collection  property="childrenList" ofType="com.waveware.dto.master.CodeDTO" javaType="List" >
+			<id column="code_4" property="code" jdbcType="VARCHAR"/>
+			<result column="title_4" property="title" jdbcType="VARCHAR"/>
+			<collection  property="childrenList" ofType="com.waveware.dto.master.CodeDTO" javaType="List" >
+				<id column="code_6" property="code" jdbcType="VARCHAR"/>
+				<result column="title_6" property="title" jdbcType="VARCHAR"/>
+			</collection>
+		</collection>
+	</resultMap>
+
+	<select id="selectIndustryMITList" resultType="com.waveware.dto.master.CodeDTO">
+		SELECT code_mti.*
+		FROM code_map INNER JOIN code_mti ON (mti = CODE)
+		WHERE classify = #{classify}
+		GROUP BY CODE
+	</select>
+	<select id="selectIndustryMIT2HSList" resultType="com.waveware.dto.master.CodeDTO">
+		SELECT substring(hs,1,6) as code
+		FROM code_map
+		WHERE mti = ${code}
+		group by code
+	</select>
+
+	<select id="selectHSList" resultMap="hs6Depth">
+		SELECT code_2,title_2, code_4,title_4,code_6,title_6
+		FROM hs_depth
+		WHERE code_6 IN
+		<foreach collection="codes" item="code" index="index" separator="," open="(" close=")">#{code}</foreach>
+		GROUP BY code_2, code_4, code_6
+	</select>
+</mapper>

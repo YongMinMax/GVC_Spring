@@ -2,69 +2,69 @@
 <!DOCTYPE mapper
 		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.waveware.mapper.CodeMapper">
-	<resultMap id="hsDepth" type="com.waveware.dto.CodeDTO">
+<mapper namespace="com.waveware.mapper.master.CodeMapper">
+	<resultMap id="hsDepth" type="com.waveware.dto.master.CodeDTO">
 		<result column="hs_code2" property="code" jdbcType="VARCHAR"/>
 		<result column="hs_title2" property="title" jdbcType="VARCHAR"/>
-		<collection property="childrenList" ofType="com.waveware.dto.CodeDTO" javaType="List">
+		<collection property="childrenList" ofType="com.waveware.dto.master.CodeDTO" javaType="List">
 			<result column="hs_code4" property="code" jdbcType="VARCHAR"/>
 			<result column="hs_title4" property="title" jdbcType="VARCHAR"/>
-			<collection property="childrenList" ofType="com.waveware.dto.CodeDTO" javaType="List">
+			<collection property="childrenList" ofType="com.waveware.dto.master.CodeDTO" javaType="List">
 				<result column="hs_code6" property="code" jdbcType="VARCHAR"/>
 				<result column="hs_title6" property="title" jdbcType="VARCHAR"/>
-				<collection property="childrenList" ofType="com.waveware.dto.CodeDTO" javaType="List">
+				<collection property="childrenList" ofType="com.waveware.dto.master.CodeDTO" javaType="List">
 					<result column="hs_code10" property="code" jdbcType="VARCHAR"/>
 					<result column="hs_title10" property="title" jdbcType="VARCHAR"/>
 				</collection>
 			</collection>
 		</collection>
 	</resultMap>
-	<resultMap id="mtiDepth" type="com.waveware.dto.CodeDTO">
+	<resultMap id="mtiDepth" type="com.waveware.dto.master.CodeDTO">
 		<result column="mti_code1" property="code" jdbcType="VARCHAR"/>
 		<result column="mti_title1" property="title" jdbcType="VARCHAR"/>
-		<collection property="childrenList" ofType="com.waveware.dto.CodeDTO" javaType="List">
+		<collection property="childrenList" ofType="com.waveware.dto.master.CodeDTO" javaType="List">
 			<result column="mti_code2" property="code" jdbcType="VARCHAR"/>
 			<result column="mti_title2" property="title" jdbcType="VARCHAR"/>
-			<collection property="childrenList" ofType="com.waveware.dto.CodeDTO" javaType="List">
+			<collection property="childrenList" ofType="com.waveware.dto.master.CodeDTO" javaType="List">
 				<result column="mti_code3" property="code" jdbcType="VARCHAR"/>
 				<result column="mti_title3" property="title" jdbcType="VARCHAR"/>
-				<collection property="childrenList" ofType="com.waveware.dto.CodeDTO" javaType="List">
+				<collection property="childrenList" ofType="com.waveware.dto.master.CodeDTO" javaType="List">
 						<result column="mti_code6" property="code" jdbcType="VARCHAR"/>
 						<result column="mti_title6" property="title" jdbcType="VARCHAR"/>
 				</collection>
 			</collection>
 		</collection>
 	</resultMap>
-	<resultMap id="sitcDepth" type="com.waveware.dto.CodeDTO">
+	<resultMap id="sitcDepth" type="com.waveware.dto.master.CodeDTO">
 		<result column="sitc_code2" property="code" jdbcType="VARCHAR"/>
 		<result column="sitc_title2" property="title" jdbcType="VARCHAR"/>
-		<collection property="childrenList" ofType="com.waveware.dto.CodeDTO" javaType="List">
+		<collection property="childrenList" ofType="com.waveware.dto.master.CodeDTO" javaType="List">
 			<result column="sitc_code3" property="code" jdbcType="VARCHAR"/>
 			<result column="sitc_title3" property="title" jdbcType="VARCHAR"/>
-			<collection property="childrenList" ofType="com.waveware.dto.CodeDTO" javaType="List">
+			<collection property="childrenList" ofType="com.waveware.dto.master.CodeDTO" javaType="List">
 				<result column="sitc_code5" property="code" jdbcType="VARCHAR"/>
 				<result column="sitc_title5" property="title" jdbcType="VARCHAR"/>
 			</collection>
 		</collection>
 	</resultMap>
-	<resultMap id="isicDepth" type="com.waveware.dto.CodeDTO">
+	<resultMap id="isicDepth" type="com.waveware.dto.master.CodeDTO">
 		<result column="isic_code1" property="code" jdbcType="VARCHAR"/>
 		<result column="isic_title1" property="title" jdbcType="VARCHAR"/>
-		<collection property="childrenList" ofType="com.waveware.dto.CodeDTO" javaType="List">
+		<collection property="childrenList" ofType="com.waveware.dto.master.CodeDTO" javaType="List">
 			<result column="isic_code2" property="code" jdbcType="VARCHAR"/>
 			<result column="isic_title2" property="title" jdbcType="VARCHAR"/>
 		</collection>
 
 	</resultMap>
-	<resultMap id="ksicDepth" type="com.waveware.dto.CodeDTO">
+	<resultMap id="ksicDepth" type="com.waveware.dto.master.CodeDTO">
 		<result column="ksic_code1" property="code" jdbcType="VARCHAR"/>
 		<result column="ksic_title1" property="title" jdbcType="VARCHAR"/>
-		<collection property="childrenList" ofType="com.waveware.dto.CodeDTO" javaType="List">
+		<collection property="childrenList" ofType="com.waveware.dto.master.CodeDTO" javaType="List">
 			<result column="ksic_code2" property="code" jdbcType="VARCHAR"/>
 			<result column="ksic_title2" property="title" jdbcType="VARCHAR"/>
 		</collection>
 	</resultMap>
-	<resultMap id="icioDepth" type="com.waveware.dto.CodeDTO">
+	<resultMap id="icioDepth" type="com.waveware.dto.master.CodeDTO">
 		<result column="icio_code1" property="code" jdbcType="VARCHAR"/>
 		<result column="icio_title1" property="title" jdbcType="VARCHAR"/>
 	</resultMap>
@@ -103,7 +103,7 @@
 		,mti.code_2 AS mti_code2, mti.title_2 AS mti_title2
 		,mti.code_3 AS mti_code3, mti.title_3 AS mti_title3
 		,mti.code_6 AS mti_code6, mti.title_6 AS mti_title6
-		from mti_depth as mti
+		from  mti_depth as mti
 		<where>
 			<choose>
 				<when test="length == 1">

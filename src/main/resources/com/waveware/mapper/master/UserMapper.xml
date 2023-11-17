@@ -2,10 +2,10 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.waveware.mapper.UserMapper">
+<mapper namespace="com.waveware.mapper.master.UserMapper">
 
 
-	<select id="userList" resultType="com.waveware.dto.UserDTO">
+	<select id="userList" resultType="com.waveware.dto.master.UserDTO">
 		SELECT 
 			*
 			FROM 
@@ -15,7 +15,7 @@
 	</select>
 	
 	<select id="getCount" resultType="java.lang.String">
-		SELECT 
+		SELECT
 			count(*)
 			FROM 
 			user

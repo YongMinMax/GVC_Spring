@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.waveware.mapper.master.SentimentMapper">
+
+
+	<select id="selectDayList" resultType="com.waveware.dto.master.SentimentDTO">
+		SELECT *
+		FROM sentiment_history
+		WHERE DATE = #{date}
+	</select>
+<!--	String date, String country-->
+	<select id="selectDayCountry" parameterType="map" resultType="com.waveware.dto.master.SentimentDTO">
+		SELECT *
+		FROM sentiment_history
+		<![CDATA[
+		WHERE DATE <= #{date}
+		  AND country = #{country}
+		ORDER BY DATE DESC
+			LIMIT ${num}
+		]]>
+	</select>
+	<select id="selectDayRank" resultType="com.waveware.dto.master.SentimentDTO">
+		SELECT h1.date,h1.score, h1.country, (h2.ROWNUM2-h1.ROWNUM1) AS rank
+		FROM (
+		SELECT @ROWNUM1 :=@ROWNUM1 +1 AS ROWNUM1,DATE,score,country FROM sentiment_history,(SELECT @ROWNUM1 := 0) tmp
+		WHERE sentiment_history.date = STR_TO_DATE(#{date},'%Y-%m-%d')
+		ORDER BY score DESC) AS h1 INNER JOIN
+		(SELECT @ROWNUM2 :=@ROWNUM2 +1 AS ROWNUM2,DATE,score,country FROM sentiment_history,(SELECT @ROWNUM2 := 0) tmp
+		WHERE sentiment_history.date = DATE_ADD(STR_TO_DATE(#{date},'%Y-%m-%d'), INTERVAL -1 DAY)
+		ORDER BY score DESC) AS h2 ON(h1.country = h2.country)
+		ORDER BY h1.score
+		<choose>
+			<when test="isDesc == true">
+				DESC
+			</when>
+			<otherwise>
+				asc
+			</otherwise>
+		</choose>
+		LIMIT ${limit}
+	</select>
+
+	
+	
+	
+
+
+</mapper>

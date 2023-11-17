@@ -2,17 +2,17 @@
 <!DOCTYPE mapper
 		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.waveware.mapper.WordMapper">
-	<resultMap id="wordCountryDepth" type="com.waveware.dto.WordDTO">
+<mapper namespace="com.waveware.mapper.master.WordMapper">
+	<resultMap id="wordCountryDepth" type="com.waveware.dto.master.WordDTO">
 		<result column="word11" property="word1" jdbcType="VARCHAR"/>
 		<result column="word12" property="word2" jdbcType="VARCHAR"/>
-		<collection property="childrenList" ofType="com.waveware.dto.WordDTO" javaType="List">
+		<collection property="childrenList" ofType="com.waveware.dto.master.WordDTO" javaType="List">
 			<result column="word21" property="word1" jdbcType="VARCHAR"/>
 			<result column="word22" property="word2" jdbcType="VARCHAR"/>
-			<collection property="childrenList" ofType="com.waveware.dto.WordDTO" javaType="List">
+			<collection property="childrenList" ofType="com.waveware.dto.master.WordDTO" javaType="List">
 				<result column="word31" property="word1" jdbcType="VARCHAR"/>
 				<result column="word32" property="word2" jdbcType="VARCHAR"/>
-				<collection property="childrenList" ofType="com.waveware.dto.WordDTO" javaType="List">
+				<collection property="childrenList" ofType="com.waveware.dto.master.WordDTO" javaType="List">
 					<result column="word41" property="word1" jdbcType="VARCHAR"/>
 					<result column="word42" property="word2" jdbcType="VARCHAR"/>
 				</collection>
@@ -20,10 +20,10 @@
 		</collection>
 	</resultMap>
 
-	<resultMap id="wordAllDepth" type="com.waveware.dto.WordDTO">
+	<resultMap id="wordAllDepth" type="com.waveware.dto.master.WordDTO">
 		<result column="word11" property="word1" jdbcType="VARCHAR"/>
 		<result column="word12" property="word2" jdbcType="VARCHAR"/>
-		<collection property="childrenList" ofType="com.waveware.dto.WordDTO" javaType="List">
+		<collection property="childrenList" ofType="com.waveware.dto.master.WordDTO" javaType="List">
 			<result column="word21" property="word1" jdbcType="VARCHAR"/>
 			<result column="word22" property="word2" jdbcType="VARCHAR"/>
 		</collection>

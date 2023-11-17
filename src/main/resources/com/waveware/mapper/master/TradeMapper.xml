@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.waveware.mapper.master.TradeMapper">
+	<resultMap id="trandeMap" type="com.waveware.dto.master.TrandeHistoryDTO">
+		<result column="hscode" property="hscode" jdbcType="NVARCHAR" javaType="String"/>
+		<result column="classify" property="classify" jdbcType="NVARCHAR" javaType="String"/>
+		<result column="country" property="country" jdbcType="NVARCHAR" javaType="String"/>
+		<result column="title_10" property="title" jdbcType="NVARCHAR" javaType="String"/>
+		<result column="import_amounts" property="amounts" jdbcType="DOUBLE" javaType="double"/>
+		<result column="import_kg" property="kg" jdbcType="DOUBLE" javaType="double"/>
+		<result column="import_price" property="price" jdbcType="DOUBLE" javaType="double"/>
+		<result column="total_price" property="totalPrice" jdbcType="DOUBLE" javaType="double"/>
+		<result column="total_ratio" property="totalRatio" jdbcType="DOUBLE" javaType="double"/>
+		<result column="dependence_ratio" property="totalDependence" jdbcType="DOUBLE" javaType="double"/>
+		<result column="totalScore" property="totalScore" jdbcType="DOUBLE" javaType="double"/>
+		<collection property="code" ofType="com.waveware.dto.master.CodeDTO">
+			<result column="code_2" property="code" jdbcType="VARCHAR" />
+			<result column="title_2" property="title" jdbcType="VARCHAR" />
+			<collection property="children" ofType="com.waveware.dto.master.CodeDTO" >
+				<result column="code_4" property="code" jdbcType="VARCHAR" />
+				<result column="title_4" property="title" jdbcType="VARCHAR" />
+				<collection property="children" ofType="com.waveware.dto.master.CodeDTO" >
+					<result column="code_6" property="code" jdbcType="VARCHAR" />
+					<result column="title_6" property="title" jdbcType="VARCHAR" />
+					<collection property="children" ofType="com.waveware.dto.master.CodeDTO" >
+						<result column="code_10" property="code" jdbcType="VARCHAR" />
+						<result column="title_10" property="title" jdbcType="VARCHAR" />
+					</collection>
+				</collection>
+			</collection>
+		</collection>
+	</resultMap>
+
+	<select id="selectTradeList" parameterType="string" resultMap="trandeMap">
+		SELECT *, title_10 as title, classify
+		FROM 2022_import_trade_history  INNER JOIN hs_depth ON (hscode = code_10)
+		inner join code_map as map on code_10 = hs
+		WHERE YEAR = 2022
+		AND country = #{country}
+	</select>
+
+	<select id="selectIndustryTradeList" resultType="com.waveware.dto.master.TrandeHistoryDTO">
+		SELECT country , SUM(import_price) as totalPrice
+		FROM (SELECT hs
+			  FROM code_map INNER JOIN code_mti ON (mti = CODE)
+			  WHERE classify = #{industry}
+			  GROUP BY hs) AS industry_hs INNER JOIN trade_history ON (hscode = industry_hs.hs)
+		WHERE YEAR = 2022
+		  AND import_price >0
+		GROUP BY country
+		ORDER BY total_price DESC
+	</select>
+
+
+	<select id="selectIndustryCountryRatio" parameterType="string" resultType="com.waveware.dto.master.TrandeHistoryDTO">
+		select classify, totalRatio
+		from trade_ratio
+		where country = #{country}
+	</select>
+
+
+	<select id="selectIndustryRiskProductList" parameterType="string" resultMap="trandeMap">
+		SELECT  trade.country,trade.hscode,trade.import_price  ,trade.total_price  ,trade.total_ratio , POW(sentiment.score,3) * trade.import_price AS totalScore,depth.*
+		FROM trade_history AS trade INNER JOIN code_map AS map ON trade.hscode = map.hs
+									INNER JOIN hs_depth AS depth ON depth.code_10 = map.hs
+									INNER JOIN sentiment_history AS sentiment ON trade.country = sentiment.country
+		WHERE YEAR = 2022
+		  AND map.classify = #{classify}
+		  AND sentiment.date = #{date}
+		  AND import_price > 0
+		ORDER BY totalScore DESC, trade.total_ratio DESC
+			LIMIT ${limit}
+	</select>
+</mapper>
+<!--		&#45;&#45; 		SELECT country ,industry_hs.classify, SUM(import_price) / industry_total.totalPrice AS totalPrice-->
+<!--		&#45;&#45; 		FROM (SELECT hs ,classify-->
+<!--		&#45;&#45; 			  FROM code_map-->
+<!--		&#45;&#45; 			  WHERE classify IS NOT NULL-->
+<!--		&#45;&#45; 			  GROUP BY hs) AS industry_hs INNER JOIN trade_history ON (hscode = industry_hs.hs)-->
+<!--		&#45;&#45; 										  INNER JOIN industry_total ON (industry_hs.classify = industry_total.classify)-->
+<!--		&#45;&#45; 		WHERE YEAR = 2022-->
+<!--		&#45;&#45; 		  AND import_price >0-->
+<!--		&#45;&#45; 		  AND country = #{country}-->
+<!--		&#45;&#45; 		GROUP BY country , industry_hs.classify-->
+<!--		&#45;&#45; 		ORDER BY total_price DESC;-->
